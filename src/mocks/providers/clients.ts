@@ -43,5 +43,16 @@ export class Clients {
         this.putClients(clients);
     }
 
+    /**
+     * Remove specific client from collection.
+     * Create new one from existing collection filtering by id
+     * @param client Client that will be removed
+     */
+    removeClient(client: Client) {
+        let clients: Client[] = this.getClients();
+        this.putClients(clients.filter((item) => item.id !== client.id));
+    }
+
+    
 
 }
