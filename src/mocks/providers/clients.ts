@@ -17,40 +17,59 @@ export class Clients {
      * 
      * @returns Client[]
      */
-    getClients(): Client[] {
-        let clients = [];
-        this.storage.get("_CLIENTS_").then(data => {
-            clients = data;
-        });
-        return clients;
+    getClients(): Promise<any> {
+        return this.storage.get("_CLIENTS_");
     }
 
     /**
      * Store clients collection
      * @param clients 
      */
-    putClients(clients: Client[]) {
-        this.storage.set("_CLIENTS_", clients);
+    putClients(clients: Client[]): Promise<any> {
+        return this.storage.set("_CLIENTS_", clients);
     }
 
     /**
      * Add client to collection stored
      * @param client Client that will be added
      */
-    addClient(client: Client) {
-        let clients: Client[] = this.getClients();
-        clients.push(client);
-        this.putClients(clients);
+    addClient(client: Client): Promise<any> {
+        let result = new Promise<Client>((resolve, reject) => {
+            try {
+                this.getClients().then(data => {
+                    let clients: Client[] = data;
+                    clients.push(client);
+                    this.putClients(clients).then(() => {
+                        resolve(client);
+                    });
+                });
+                
+            } catch (error) {
+                reject();                
+            }
+            
+        });
+        return result;
     }
 
     /**
      * Remove specific client from collection.
      * Create new one from existing collection filtering by id
      * @param client Client that will be removed
+     * 
+     * @return Promise that resolve after 
      */
-    removeClient(client: Client) {
-        let clients: Client[] = this.getClients();
-        this.putClients(clients.filter((item) => item.id !== client.id));
+    removeClient(client: Client): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            this.getClients().then(data => {
+                let clients: Client[] = data;
+                this.putClients(clients.filter((item) => item.id !== client.id)).then(() => {
+                    resolve();
+                }).catch(() => {
+                    reject();
+                });
+            });
+        })
     }
 
     

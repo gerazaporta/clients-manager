@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Clients list</ion-title>
+    <ion-title>Clients</ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="addClient()">
@@ -17,17 +17,17 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let client of clients">
-      <button ion-item (click)="openClient(client)">
-        <ion-avatar item-start>
-          <ion-icon name="user"></ion-icon>
-        </ion-avatar>
-        <h2>{{client.firstName}}</h2>
-        <p>{{client.firstName}}</p>
+      <button class="btn-client-item-list" ion-item (click)="openClient(client)">
+        <ion-icon name="contact"></ion-icon>
+        <div class="client-content-item-list">
+          <h2>{{ client.firstName }} {{ client.lastName }} </h2>
+          <p>{{ client.birthday }}</p>
+        </div>
       </button>
 
       <ion-item-options>
         <button ion-button color="danger" (click)="deleteClient(client)">
-          DELETE
+          <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
     </ion-item-sliding>
