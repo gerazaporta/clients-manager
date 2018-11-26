@@ -9,10 +9,13 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ClientsListPage } from '../pages/clients-list/clients-list';
+import { HealthInsurancesListPage } from '../pages/health-insurances-list/health-insurances-list';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Clients } from '../mocks/providers/clients';
+import { HealthInsurances } from '../mocks/providers/health-insurances';
 
 export function provideClients(storage: Storage) {
   /**
@@ -31,6 +34,7 @@ export function provideClients(storage: Storage) {
     ContactPage,
     HomePage,
     ClientsListPage,
+    HealthInsurancesListPage,
     TabsPage
   ],
   imports: [
@@ -45,12 +49,14 @@ export function provideClients(storage: Storage) {
     ContactPage,
     HomePage,
     ClientsListPage,
+    HealthInsurancesListPage,
     TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Clients,
+    HealthInsurances,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

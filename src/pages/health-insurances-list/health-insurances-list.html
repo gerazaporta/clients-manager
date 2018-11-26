@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Health Insurances</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addHealthInsurance()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+    
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let insurance of healthInsurances">
+      <button class="btn-health-insurance-item-list" ion-item (click)="openHealthInsurance(client)">
+        <ion-icon name="medkit"></ion-icon>
+        <div class="health-insurance-content-item-list">
+          <h2>{{ insurance.name }}</h2>
+        </div>
+      </button>
+
+      <ion-item-options>
+        <button ion-button color="danger" (click)="deleteHealthInsurance(client)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

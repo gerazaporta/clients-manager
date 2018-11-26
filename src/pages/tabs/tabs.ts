@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
+import { HealthInsurancesListPage } from "../health-insurances-list/health-insurances-list";
 import { HomePage } from '../home/home';
 import { ClientsListPage } from '../clients-list/clients-list';
 
@@ -12,7 +12,7 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = ClientsListPage;
-  tab3Root = ContactPage;
+  tab3Root = HealthInsurancesListPage;
 
   constructor() {
 
