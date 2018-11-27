@@ -5,8 +5,8 @@ import { HealthInsurances } from "../../mocks/providers/health-insurances";
 
 @IonicPage()
 @Component({
-    selector: 'page-health-insurances-list',
-    templateUrl: 'health-insurances-list.html'
+  selector: 'page-health-insurances-list',
+  templateUrl: 'health-insurances-list.html',
 })
 export class HealthInsurancesListPage {
     healthInsurances: HealthInsurance[];
@@ -28,20 +28,19 @@ export class HealthInsurancesListPage {
     }
 
     /**
-   * Prompt the user to add a new item. This shows our ItemCreatePage in a
-   * modal and then adds the new item to our data source if the user created one.
-   */
-   addHealthInsurance() {
-    let addModal = this.modalCtrl.create('HealthInsuranceCreatePage');
-    addModal.onDidDismiss(item => {
+     * Prompt the user to add a new item. This shows our ItemCreatePage in a
+     * modal and then adds the new item to our data source if the user created one.
+     */
+    addHealthInsurance() {
+      let addModal = this.modalCtrl.create('HealthInsuranceCreatePage');
+      addModal.onDidDismiss(item => {
         if (item) {
-        this.healthInsurancessProvider.addHealthInsurance(item).then(healthInsurance => {
-          this.updateHealthInsurances();
-        });
-
-      }
-    })
-    addModal.present();
+          this.healthInsurancessProvider.addHealthInsurance(item).then(healthInsurance => {
+            this.updateHealthInsurances();
+          });
+        }
+      })
+     addModal.present();
    }
 
   /**

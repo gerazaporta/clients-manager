@@ -37,7 +37,7 @@ export class Clients {
         let result = new Promise<Client>((resolve, reject) => {
             try {
                 this.getClients().then(data => {
-                    let clients: Client[] = data;
+                    let clients: Client[] = data? data: [];
                     clients.push(client);
                     this.putClients(clients).then(() => {
                         resolve(client);
@@ -45,6 +45,7 @@ export class Clients {
                 });
                 
             } catch (error) {
+                console.error(error);
                 reject();                
             }
             

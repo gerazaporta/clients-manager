@@ -4,10 +4,10 @@ import { IonicPage, NavController, ViewController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-client-create',
-  templateUrl: 'client-create.html'
+  selector: 'page-health-insurance-create',
+  templateUrl: 'health-insurance-create.html'
 })
-export class ClientCreatePage {
+export class HealthInsuranceCreatePage {
   @ViewChild('fileInput') fileInput;
 
   isReadyToSave: boolean;
@@ -18,9 +18,7 @@ export class ClientCreatePage {
   
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder) {
     this.form = formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      birthday: [new Date(), Validators.required]
+      name: ['', Validators.required],
     });
 
     // Watch the form for changes, and
@@ -30,10 +28,6 @@ export class ClientCreatePage {
   }
 
   ionViewDidLoad() {
-  }
-
-  getProfileImageStyle() {
-    return 'url(' + this.form.controls['profilePic'].value + ')'
   }
 
   /**

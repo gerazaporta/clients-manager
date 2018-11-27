@@ -1,17 +1,17 @@
-page-clients-list {
-    .btn-client-item-list{
+page-health-insurances-list {
+    .btn-health-insurance-item-list{
         display: inline-table;
-        .client-content-item-list {
+        .health-insurance-content-item-list {
             display: inline-block;
         }
         ion-icon {
             display: inline-block;
-            font-size: 3.0em;
+            font-size: 1.7em;
         }
     }
     ion-icon {
         display: inline-block;
-        font-size: 2.0em;
+        font-size: 1.0em;
     }
 }
   
