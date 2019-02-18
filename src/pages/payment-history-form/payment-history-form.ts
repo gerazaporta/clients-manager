@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { IonicPage, NavController, ViewController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import { HealthInsurance } from '../../models/health-insurance';
 import { HealthInsurances } from '../../mocks/providers/health-insurances';
 
 @IonicPage()
 @Component({
-  selector: 'page-client-create',
-  templateUrl: 'client-create.html'
+  selector: 'payment-history-form',
+  templateUrl: 'payment-history-form.html'
 })
-export class ClientCreatePage {
+export class PaymentHistoryForm {
   @ViewChild('fileInput') fileInput;
 
   isReadyToSave: boolean;
@@ -18,21 +18,32 @@ export class ClientCreatePage {
 
   form: FormGroup;
 
-  paymentsHistory: FormArray;
+  public paymentsHistory: FormArray;
 
   insurances: HealthInsurance[];
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, private formBuilder: FormBuilder,
-    private healthInsurances: HealthInsurances, private modalCtrl: ModalController) {
-
-
-      this.paymentsHistory = this.formBuilder.array([]);
-
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public viewCtrl: ViewController, private formBuilder: FormBuilder,
+    private healthInsurances: HealthInsurances) {
       this.form = this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        birthday: [new Date(), Validators.required],
-        paymentsHistory: this.paymentsHistory
+        annualPayments: this.formBuilder.group({
+          january: [false],
+          febrary: [false],
+          march: [false],
+          april: [false],
+          may: [false],
+          june: [false],
+          july: [false],
+          august: [false],
+          september: [false],
+          october: [false],
+          november: [false],
+          december: [false]
+        }),
+        payment: ['', Validators.required],
+        insurancePrice: ['', Validators.required],
+        clientId: ['', Validators.required],
+        year: [new Date(), Validators.required]
       });
 
       // Watch the form for changes, and
@@ -50,20 +61,7 @@ export class ClientCreatePage {
   getProfileImageStyle() {
     return 'url(' + this.form.controls['profilePic'].value + ')'
   }
-  /**
-   * Prompt the user to add a new item. This shows our ItemCreatePage in a
-   * modal and then adds the new item to our data source if the user created one.
-   */
-  addPayment() {
-    let addModal = this.modalCtrl.create('PaymentHistoryForm');
-    addModal.onDidDismiss(item => {
-      console.log(item);
-      if (item) {
-        this.paymentsHistory.push(item);
-      }
-    })
-    addModal.present();
-  }
+
   /**
    * The user cancelled, so we dismiss without sending data back.
    */

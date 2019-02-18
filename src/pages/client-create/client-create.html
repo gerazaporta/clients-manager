@@ -37,5 +37,19 @@
         <ion-datetime displayFormat="MM/DD/YYYY" formControlName="birthday"></ion-datetime>
       </ion-item>
     </ion-list>
+    <ion-list formArrayName="paymentsHistory">
+      <ion-item>
+        <label>Payments</label>
+        <button ion-button icon-only (click)="addPayment()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-list *ngFor="let paymentHistory of form.get('paymentsHistory').controls; let i=index" [formGroupName]="i">
+        <ion-item (click)="addPayment()">
+          <ion-label>{{ paymentHistory.get("year").value }}</ion-label>
+          <ion-input type="text" value="{{ paymentHistory.get('payment').value }}"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-list>
   </form>
 </ion-content>

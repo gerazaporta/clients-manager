@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { HealthInsurance } from "../../models/health-insurance";
 import { HealthInsurances } from "../../mocks/providers/health-insurances";
+import { ClientsListPage } from "../clients-list/clients-list";
 
 @IonicPage()
 @Component({
@@ -12,14 +13,14 @@ export class HealthInsurancesListPage {
     healthInsurances: HealthInsurance[];
 
     /**
-     * HealthInsurancesListPage ionic page   
-     * @param navCtrl 
-     * @param healthInsurancesProvider 
-     * @param modalCtrl 
+     * HealthInsurancesListPage ionic page
+     * @param navCtrl
+     * @param healthInsurancesProvider
+     * @param modalCtrl
      */
     constructor(public navCtrl: NavController, public healthInsurancessProvider: HealthInsurances, public modalCtrl: ModalController) {
     }
-    
+
     /**
      * On view loaded the health insurances list should be updated
      */
@@ -64,6 +65,15 @@ export class HealthInsurancesListPage {
   private updateHealthInsurances() {
     this.healthInsurancessProvider.getHealthInsurances().then(data => {
       this.healthInsurances = data;
+    });
+  }
+
+  /**
+   * goToInsuranceClients
+   */
+  public goToInsuranceClients(insurance) {
+    this.navCtrl.push(ClientsListPage, {
+      insurance: insurance
     });
   }
 }

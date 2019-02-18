@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
-import { IonicPage, ModalController, NavController } from 'ionic-angular';
+import { IonicPage, ModalController, NavController, NavParams } from 'ionic-angular';
 import { Client } from "../../models/client";
 import { Clients } from "../../mocks/providers/clients";
+import { HealthInsurancesListModule } from "../health-insurances-list/health-insurances-list.module";
 
 @IonicPage()
 @Component({
@@ -10,16 +11,19 @@ import { Clients } from "../../mocks/providers/clients";
 })
 export class ClientsListPage {
     clients: Client[];
+    insurance: string;
 
     /**
-     * ClientsListPage ionic page   
-     * @param navCtrl 
-     * @param clientsProvider 
-     * @param modalCtrl 
+     * ClientsListPage ionic page
+     * @param navCtrl
+     * @param clientsProvider
+     * @param modalCtrl
      */
-    constructor(public navCtrl: NavController, public clientsProvider: Clients, public modalCtrl: ModalController) {
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+      public clientsProvider: Clients, public modalCtrl: ModalController) {
+      this.insurance = navParams.get('insurance');
     }
-    
+
     /**
      * On view loaded the clients list should be updated
      */
@@ -67,6 +71,12 @@ export class ClientsListPage {
   private updateClientList() {
     this.clientsProvider.getClients().then(data => {
       this.clients = data;
+      if (data) {
+        this.clients.filter(client => {
+          return client.paymentsHistory.length != 0 && this.insurance ?
+          client.paymentsHistory[0].healthInsuranceId = this.insurance : 0;
+        });
+      }
     });
   }
 }
