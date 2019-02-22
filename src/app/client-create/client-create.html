@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create client</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="cancel()">
+        <span color="primary" showWhen="ios">
+          Cancel
+        </span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="done()" [disabled]="!isReadyToSave" strong>
+        <span color="primary" showWhen="ios">
+          Done
+        </span>
+        <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="Firstname" formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Lastname" formControlName="lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Birthday</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" formControlName="birthday"></ion-datetime>
+      </ion-item>
+    </ion-list>
+    <ion-list formArrayName="paymentsHistory">
+      <ion-item>
+        <label>Payments</label>
+        <button ion-button icon-only (click)="addPayment()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-list *ngFor="let paymentHistory of form.get('paymentsHistory').controls; let i=index" [formGroupName]="i">
+        <ion-item (click)="addPayment()">
+          <ion-label>{{ paymentHistory.get("year").value }}</ion-label>
+          <ion-input type="text" value="{{ paymentHistory.get('payment').value }}"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+  </form>
+</ion-content>

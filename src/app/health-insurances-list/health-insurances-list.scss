@@ -1,0 +1,17 @@
+page-health-insurances-list {
+    .btn-health-insurance-item-list{
+        display: inline-table;
+        .health-insurance-content-item-list {
+            display: inline-block;
+        }
+        ion-icon {
+            display: inline-block;
+            font-size: 1.7em;
+        }
+    }
+    ion-icon {
+        display: inline-block;
+        font-size: 1.0em;
+    }
+}
+  
